@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>soal2</title>
+</head>
+<body>
+    <h1>Drawing Tools</h1>
+    <h5>1. Persegi</h5>
+    <h5>2. Segitiga Siku2 Rata Kiri</h5>
+    <h5>3. Segitiga Siku2 Rata Kanan</h5>
+    <h5>Jenis Bangunan:</h5>
+    <input id="pilihan"></input>
+    <h5>Ukuran</h5>
+    <input id="ukuran"></input>
+    <br>
+    <br>
+    <button onclick="Lihat()">Lihat</button>
+    <pre id="out"></pre>
+
+    <script>
+        function persegi(){
+                function print(s) { document.getElementById('out').innerHTML += s; }
+                function println(s) { document.getElementById('out').innerHTML += s + '\n'; }
+                document.getElementById('out').innerHTML = '<br>'
+                var ukuran = document.getElementById("ukuran").value
+                for (var i = 0; i < ukuran; i++) {
+                    for (var j = 0; j < ukuran; j++) {
+                        print("*");
+                    }
+                    println("");
+                }
+            }
+            
+        function segitigaKiri(){
+            document.getElementById('out').innerHTML = '<br>'
+            function print(s) { document.getElementById('out').innerHTML += s; }
+            function println(s) { document.getElementById('out').innerHTML += s + '\n'; }
+            var ukuran = document.getElementById("ukuran").value
+            for (var i = 0; i < ukuran; i++){
+                print("*");
+                println("".repeat(ukuran-i) + "*".repeat(i))
+            }
+        } 
+
+        function segitigaKanan(){
+            function print(s) { document.getElementById('out').innerHTML += s; }
+            function println(s) { document.getElementById('out').innerHTML += s + '\n'; }
+            var ukuran = document.getElementById("ukuran").value
+            for (var i = 0; i <= ukuran; i++){
+                println(" ".repeat(ukuran-i) + "*".repeat(i))
+            }
+            
+        }
+
+        function Lihat() {
+            function print(s) { document.getElementById('out').innerHTML += s; }
+            document.getElementById('out').innerHTML = '';
+            var pilihan = document.getElementById('pilihan').value;
+            switch (parseInt(pilihan)) {
+                case 1:
+                    persegi();
+                    break;
+                    
+                case 2:
+                    segitigaKiri();
+                    break;
+                    
+                case 3:
+                    segitigaKanan();
+                    break; 
+                default:
+                    print('Error: Masukkan input yang valid')
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal 3</title>
+    <style>
+        table, th, td{
+            border-width: 1px;
+            border-color: black;
+            border-style: solid;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <h1>Daftar Manusia</h1>
+    <label>Nama:</label>
+    <input id="nama">
+
+    <br>
+    <br>
+
+    <label>Umur:</label>
+    <input id="umur">
+
+    <br>
+    <br>
+
+    <label>Kelamin:</label>
+        <input name="kelamin" type="radio" value="pria" id="pria">
+        <label for="pria">Pria</label>
+        <input name="kelamin" type="radio" value="wanita" id="wanita">
+        <label for="wanita">Wanita</label>
+
+    <br>
+    <br>
+
+    <label>Pekerjaan:</label>
+    <input id="pekerjaan">
+
+    <br>
+    <br>
+
+    <button onclick="Submit()">Submit</button>
+    <button onclick="SortNama()">Sort Nama</button>
+    <button onclick="SortUmur()">Sort Umur</button>
+    <button onclick="SortKelamin()">Sort Kelamin</button>
+    <button onclick="SortPekerjaan()">Sort Pekerjaan</button>
+
+    <br>
+    <br>
+
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Umur</th>
+                <th>Kelamin</th>
+                <th>Pekerjaan</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>Baron</td>
+                <td>20</td>
+                <td>Wanita</td>
+                <td>Guru</td>
+            </tr>
+            <tr>
+                <td>Adrian</td>
+                <td>23</td>
+                <td>Pria</td>
+                <td>Preman</td>
+            </tr>
+        </tbody>
+      </table>
+      <script>
+        var manusia = [];
+        var nama = document.getElementById('nama')
+        var umur = document.getElementById('umur')
+        var pria = document.getElementById('pria')
+        var wanita = document.getElementById('wanita')
+        var pekerjaan = document.getElementById('pekerjaan')
+        const radioButtons = document.querySelectorAll('input[name="kelamin"]')
+        
+        function Submit(){
+            let jenisKelamin;
+            for (const radioButton of radioButtons){
+                if(radioButton.checked){
+                    jenisKelamin = radioButton.value;
+                    break;
+                }
+            }
+            // manusia.push({nama: nama.value, umur: umur.value, kelamin: jenisKelamin, pekerjaan: pekerjaan.value})
+            // console.log(manusia)
+            console.log(nama.value)
+            var rows = "";
+            rows = `<tr><td>${nama.value}</td><td>${umur.value}</td><td>${jenisKelamin}</td><td>${pekerjaan.value}</td></tr>`
+            let table = document.getElementById('table');
+            table.innerHTML += rows;
+            nama.value = ''
+            umur.value = ''
+            pekerjaan.value = ''
+        }
+        function SortNama(){
+            var table, baris, check, i, x, y, shouldSwitch;
+            table = document.getElementById('table')
+            check = true;
+            
+            while(check){ //while check true > jalankan terus untuk sortir
+                check = false; //untuk keluar dari while
+                baris = table.rows;
+                for(i = 1; i < (baris.length - 1); i++){// looping untuk cek semua row kecuali row 1 (header)
+                    shouldSwitch = false; //untuk keluar dari for loop kalau row yang akan di switch sudah dapat
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    //x dan y merupakan 2 row yang akan di cek nanti jika perlu di tukar urutannya
+                    x = baris[i].getElementsByTagName("TD")[0];
+                    y = baris[i+1].getElementsByTagName("TD")[0];
+                    //logika untuk cek apa perlu dilakukan pertukaran row antara row x dan y
+                    if(x.innerHTML.toLowerCase()>y.innerHTML.toLowerCase()){
+                        shouldSwitch = true; //true agar loop berikutnya dapat kluar dari for loop
+                        break;
+                    }
+                }
+                if(shouldSwitch){
+                    //jika masuk sini berarti akan dilakukan switch antara row x dan y
+                    baris[i].parentNode.insertBefore(baris[i + 1], baris[i]);
+                    check = true; //jika true maka masih akan dilakukan while looping berikut
+                }
+            }
+        }
+        function SortUmur(){
+            var table, baris, check, i, x, y, shouldSwitch;
+            table = document.getElementById('table')
+            check = true;
+            
+            while(check){ //while check true > jalankan terus untuk sortir
+                check = false; //untuk keluar dari while
+                baris = table.rows;
+                for(i = 1; i < (baris.length - 1); i++){// looping untuk cek semua row kecuali row 1 (header)
+                    shouldSwitch = false; //untuk keluar dari for loop kalau row yang akan di switch sudah dapat
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    //x dan y merupakan 2 row yang akan di cek nanti jika perlu di tukar urutannya
+                    x = baris[i].getElementsByTagName("TD")[1];
+                    y = baris[i+1].getElementsByTagName("TD")[1];
+                    //logika untuk cek apa perlu dilakukan pertukaran row antara row x dan y
+                    if(x.innerHTML.toLowerCase()>y.innerHTML.toLowerCase()){
+                        shouldSwitch = true; //true agar loop berikutnya dapat kluar dari for loop
+                        break;
+                    }
+                }
+                if(shouldSwitch){
+                    //jika masuk sini berarti akan dilakukan switch antara row x dan y
+                    baris[i].parentNode.insertBefore(baris[i + 1], baris[i]);
+                    check = true; //jika true maka masih akan dilakukan while looping berikut
+                }
+            }
+        }
+        function SortKelamin(){
+            var table, baris, check, i, x, y, shouldSwitch;
+            table = document.getElementById('table')
+            check = true;
+            
+            while(check){ //while check true > jalankan terus untuk sortir
+                check = false; //untuk keluar dari while
+                baris = table.rows;
+                for(i = 1; i < (baris.length - 1); i++){// looping untuk cek semua row kecuali row 1 (header)
+                    shouldSwitch = false; //untuk keluar dari for loop kalau row yang akan di switch sudah dapat
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    //x dan y merupakan 2 row yang akan di cek nanti jika perlu di tukar urutannya
+                    x = baris[i].getElementsByTagName("TD")[2];
+                    y = baris[i+1].getElementsByTagName("TD")[2];
+                    //logika untuk cek apa perlu dilakukan pertukaran row antara row x dan y
+                    if(x.innerHTML.toLowerCase()>y.innerHTML.toLowerCase()){
+                        shouldSwitch = true; //true agar loop berikutnya dapat kluar dari for loop
+                        break;
+                    }
+                }
+                if(shouldSwitch){
+                    //jika masuk sini berarti akan dilakukan switch antara row x dan y
+                    baris[i].parentNode.insertBefore(baris[i + 1], baris[i]);
+                    check = true; //jika true maka masih akan dilakukan while looping berikut
+                }
+            }
+        }
+        function SortPekerjaan(){
+            var table, baris, check, i, x, y, shouldSwitch;
+            table = document.getElementById('table')
+            check = true;
+            
+            while(check){ //while check true > jalankan terus untuk sortir
+                check = false; //untuk keluar dari while
+                baris = table.rows;
+                for(i = 1; i < (baris.length - 1); i++){// looping untuk cek semua row kecuali row 1 (header)
+                    shouldSwitch = false; //untuk keluar dari for loop kalau row yang akan di switch sudah dapat
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    //x dan y merupakan 2 row yang akan di cek nanti jika perlu di tukar urutannya
+                    x = baris[i].getElementsByTagName("TD")[3];
+                    y = baris[i+1].getElementsByTagName("TD")[3];
+                    //logika untuk cek apa perlu dilakukan pertukaran row antara row x dan y
+                    if(x.innerHTML.toLowerCase()>y.innerHTML.toLowerCase()){
+                        shouldSwitch = true; //true agar loop berikutnya dapat kluar dari for loop
+                        break;
+                    }
+                }
+                if(shouldSwitch){
+                    //jika masuk sini berarti akan dilakukan switch antara row x dan y
+                    baris[i].parentNode.insertBefore(baris[i + 1], baris[i]);
+                    check = true; //jika true maka masih akan dilakukan while looping berikut
+                }
+            }
+        }
+    </script>
+</body>
+</html>
